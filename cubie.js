@@ -23,6 +23,7 @@ class Cubie {
     ret.rotZ = this.rotZ;
     return ret;
   }
+  // rotate front and back face
   RotateZ(cw) {
     // if(cw) {
     //   let temp = this.c.LEFT;
@@ -39,6 +40,7 @@ class Cubie {
     // }
     this.rotZ += cw?PI/2:-PI/2;
   }
+  // rotate left and right face
   RotateY(cw) {
     // if(cw) {
     //   let temp = this.c.FRONT;
@@ -53,8 +55,9 @@ class Cubie {
     //   this.c.FRONT = this.c.UP;
     //   this.c.UP = temp;
     // }
-    this.rotX += cw?PI/2:-PI/2;
+    this.rotX += cw?-PI/2:PI/2;
   }
+  // rotate up and down face
   RotateX(cw) {
     // if(cw) {
     //   let temp = this.c.LEFT;
@@ -69,7 +72,7 @@ class Cubie {
     //   this.c.RIGHT = this.c.FRONT;
     //   this.c.FRONT = temp;
     // }
-    this.rotY += cw?PI/2:-PI/2;
+    this.rotY += cw?-PI/2:PI/2;
   }
   render() {
     push();
