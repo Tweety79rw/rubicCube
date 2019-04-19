@@ -8,6 +8,22 @@ class Rubic {
         }
       }
     }
+    this.move = null;
+  }
+  Shuffle() {
+    for(let i = 0; i < 100; i++) {
+      let r = floor(random(12));
+      this.Rotate(moves[r]);
+    }
+  }
+  Rotate(m) {
+    if(abs(m.x) > 0) {
+      this.RotateX(m.x, m.dir);
+    } else if(abs(m.y) > 0) {
+      this.RotateY(m.y, -m.dir);
+    } else if(abs(m.z) > 0) {
+      this.RotateZ(m.z, m.dir);
+    }
   }
   RotateZ(side, cw) {
     for(let qb of this.cubies) {
@@ -36,8 +52,28 @@ class Rubic {
       }
     }
   }
+  Move(move) {
+    this.move = move;
+    this.move.Start();
+  }
   render() {
     scale(50);
-    this.cubies.forEach(function(d, i) {d.render();});
+    if(this.move)
+      this.move.Update();
+    let _this = this;
+    this.cubies.forEach(function(d, i) {
+      push()
+      if(_this.move) {
+        if(abs(_this.move.z) > 0 && _this.move.z === d.mat.z) {
+          rotateZ(_this.move.angle);
+        } else if(abs(_this.move.x) > 0 && _this.move.x === d.mat.x) {
+          rotateX(_this.move.angle);
+        } else if(abs(_this.move.y) > 0 && _this.move.y === d.mat.y) {
+          rotateY(_this.move.angle);
+        }
+      }
+      d.render();
+      pop();
+    });
   }
 }
